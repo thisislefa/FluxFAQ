@@ -1,0 +1,199 @@
+/* --- RESET & VARIABLES --- */
+        :root {
+            --color-primary: #FF5226; /* Brand Orange */
+            --color-text-dark: #111827;
+            --color-text-light: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-border: #E5E7EB;
+            --font-family: 'Inter', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-bg);
+            color: var(--color-text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 80px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- LAYOUT --- */
+        .faq-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .header__eyebrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .header__title {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--color-text-dark);
+            letter-spacing: -0.03em;
+        }
+
+        @media (max-width: 768px) {
+            .header__title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- ACCORDION --- */
+        .accordion {
+            width: 100%;
+            margin-bottom: 100px;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            group: all;
+        }
+
+        .accordion-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            padding-right: 24px;
+            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .accordion-header:hover .accordion-title {
+            color: var(--color-primary);
+        }
+
+        .accordion-icon {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        /* Accordion Content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .accordion-body {
+            padding-bottom: 32px;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+        /* Active State */
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg); /* Turns plus to X */
+        }
+
+        .accordion-item.active .accordion-content {
+            opacity: 1;
+        }
+
+        /* --- LOGO MARQUEE --- */
+        .logo-marquee-wrapper {
+            /* This acts as the viewport, constraining the marquee width */
+            width: 100%;
+            max-width: 900px; /* Same width as .faq-container */
+            overflow: hidden;
+            display: flex;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            animation: fadeUp 1s ease-out;
+            white-space: nowrap; /* Ensure logos stay on one line */
+            margin-bottom: 100px;
+        }
+        
+        .logo-marquee-wrapper:hover {
+            opacity: 1;
+        }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Prevents shrinking */
+            animation: marquee 30s linear infinite; /* Apply the continuous scroll */
+            /* This padding helps create a smooth transition gap before the duplicated track */
+            padding-right: 96px; 
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused; /* Pause animation on hover */
+        }
+
+        .partner-logo {
+            height: 32px;
+            width: auto;
+            fill: var(--color-text-dark);
+            display: block;
+            margin: 0 48px; /* Spacing between individual logos */
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                /* Moves by the width of the first track plus its right padding */
+                transform: translateX(calc(-100% - 96px)); 
+            }
+        }
